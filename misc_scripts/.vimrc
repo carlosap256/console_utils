@@ -1,0 +1,1 @@
+/home/carlosap256/.vimrc
