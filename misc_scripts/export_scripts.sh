@@ -1,4 +1,4 @@
 #!/bin/bash
-cp /home/carlosap256/.bash_aliases .
-cp /home/carlosap256/.bashrc .
-cp /home/carlosap256/.vimrc .
+cp ~/.bash_aliases .
+cp ~/.bashrc .
+cp ~/.vimrc .
