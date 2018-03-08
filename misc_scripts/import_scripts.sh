@@ -1,4 +1,12 @@
 #!/bin/bash
-cp .bash_aliases ~/.bash_aliases
-cp .bashrc ~/.bashrc
-cp .vimrc ~/.vimrc
+
+echo "Import GitHub .*rc files to overwrite local ones? (y/n)"
+read -n 1 answer
+
+if [ "$answer" = "y" ]
+then
+    cp .bash_aliases ~/.bash_aliases
+    cp .bashrc ~/.bashrc
+    cp .vimrc ~/.vimrc
+fi
+
