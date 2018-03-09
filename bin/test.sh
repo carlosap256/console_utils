@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Import Boilerplate scripts
-export PATH=$PATH:~/github/hello_world/bin/boilerplate
+export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate
 
 pid=$$
 

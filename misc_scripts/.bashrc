@@ -119,5 +119,7 @@ fi
 
 
 export PYTHONSTARTUP=$HOME/.python-startup.py
+export GITHUB_PATH=~/github
+export UTILS_REPO=/hello_world
 
-export PATH=$PATH:~/github/hello_world/bin
+export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin
