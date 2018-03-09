@@ -120,6 +120,6 @@ fi
 
 export PYTHONSTARTUP=$HOME/.python-startup.py
 export GITHUB_PATH=~/github
-export UTILS_REPO=/hello_world
+export UTILS_REPO=/console_utils
 
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin
