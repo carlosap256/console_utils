@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Boilerplate code to check if the current user is sudo, and sigterm the parent process id if provided
+
+parent_pid=$1
+
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root" 
+    
+    if [[ -n "$parent_pid" ]]; then
+        echo "Sending TERM signal to parent"
+        kill -s TERM "$parent_pid"
+    else
+        echo "Exit"
+        exit 1
+    fi
+fi

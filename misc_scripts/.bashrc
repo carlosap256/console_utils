@@ -120,3 +120,4 @@ fi
 
 export PYTHONSTARTUP=$HOME/.python-startup.py
 
+export PATH=$PATH:~/github/hello_world/bin
