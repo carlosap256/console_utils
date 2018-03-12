@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [[ $EUID -e 0 ]]; then
+    user_name=`who am i | awk '{print $1}'`
+    user_path=`su - $user_name -c '. ~/.profile; echo $PATH'`
+    export PATH=$PATH:$user_path
+fi

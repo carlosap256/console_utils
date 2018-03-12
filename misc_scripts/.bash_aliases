@@ -1,8 +1,17 @@
 
-#alias gitgraph='git log --graph --oneline --decorate --all'
+
+# *****************
+#   GIT Aliases
+# *****************
+
+# Graph shortcut that includes a custom format to present the commit, author, timestamp etc in different colors
 alias gg='git log --all --graph --pretty=format:"%C(auto)%h%C(auto)%d %s %C(magenta bold)[%aN] %C(white bold)(%ar)"'
+
+# Shorcut to show the status in the condensed form
 alias gts='git status -s -b'
 
+# Delete branch in both local and remote repositories
+#       gdb branchname
 function delete_branch () { echo -e "\nDeleting Remote branch";
                             echo "git push origin :$1"
                             git push origin :$1
@@ -12,7 +21,10 @@ function delete_branch () { echo -e "\nDeleting Remote branch";
                             }
 alias gdb='delete_branch' 
 
-# tail -f file | grep --line-buffered my_pattern
+# *****************
 
+
+# Perform a grep on a tail -f stream
+#       gtail filename regexpattern
 function grep_tail () { tail -f $1 | grep --line-buffered $2; }
 alias gtail='grep_tail' 

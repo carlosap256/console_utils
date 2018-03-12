@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# Import Boilerplate scripts
-export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate
+# Preserve the path values registered for this user, even if they have done Sudo
+bp_preserve_path
 
 pid=$$
-
 
 bp_force_sudo_or_die $pid  
 

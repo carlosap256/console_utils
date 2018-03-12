@@ -7,6 +7,7 @@ if [ "$answer" = "y" ]
 then
     cp .bash_aliases ~/.bash_aliases
     cp .bashrc ~/.bashrc
+    cp .profile ~/.profile
     cp .vimrc ~/.vimrc
 fi
 
