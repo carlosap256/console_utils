@@ -57,8 +57,13 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
+    if [[ $EUID = 0 ]]; then
+        user_color="\[\033[01;91m\]"
+    else
+        user_color="\[\033[01;32m\]"
+    fi
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='[\[\033[93m\]\D{%F %T}\[\033[00m\]] [\[\033[00m\]\w\[\033[00m\]] \n${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]\$ '
+    PS1="[\[\033[93m\]\D{%F %T}\[\033[00m\]] [\[\033[00m\]\w\[\033[00m\]] \n${debian_chroot:+($debian_chroot)}${user_color}\u@\h\[\033[00m\]\$ "
 else
     PS1='[\w]\n${debian_chroot:+($debian_chroot)}\u@\h\$ '
 fi

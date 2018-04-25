@@ -24,4 +24,4 @@ export GITHUB_PATH=~/github
 export UTILS_REPO=/console_utils
 
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin
-export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate/
+export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate

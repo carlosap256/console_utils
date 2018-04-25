@@ -1,5 +1,10 @@
 #!/bin/bash
 
+
+apt-get -o Dpkg::Options::="--force-confnew" -y install git python3 python3-dev python-django virtualenv python-pip
+apt-get -y install curl
+
+
 # Install Pathogen
 if [ ! -f ~/.vim/autoload/pathogen.vim ]
 then
@@ -9,8 +14,11 @@ fi
 
 
 # Bash syntax checking 
-apt install vim vim-syntastic shellcheck
+apt-get install -y vim vim-syntastic shellcheck
 
 # Install syntastic as a Pathogen bundle
 cd ~/.vim/bundle && \
 git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
+
+# Install Markdown for Git
+apt-get install remarkable
