@@ -1,7 +1,8 @@
 #!/bin/bash
 
+apt-get update
 
-apt-get -o Dpkg::Options::="--force-confnew" -y install git python3 python3-dev python-django virtualenv python-pip
+apt-get -o Dpkg::Options::="--force-confnew" -y install git python3 python3-dev python3-django virtualenv python3-pip
 apt-get -y install curl
 
 
@@ -21,4 +22,11 @@ cd ~/.vim/bundle && \
 git clone --depth=1 https://github.com/vim-syntastic/syntastic.git
 
 # Install Markdown for Git
-apt-get install remarkable
+cd /tmp
+wget https://remarkableapp.github.io/files/remarkable_1.62_all.deb 
+apt-get install gdebi-core
+gdebi remarkable_1.62_all.deb
+
+# Install fallback Markdown tool
+apt-get install retext
+
