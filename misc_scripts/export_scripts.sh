@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Export local .*rc files to GitHub? (y/n)"
-read -n 1 answer
+read -r -n 1 answer
 
 if [ "$answer" = "y" ]
 then
@@ -9,5 +9,9 @@ then
     cp ~/.bashrc .
     cp ~/.profile .
     cp ~/.vimrc .
+    if [ -f "$HOME/.SpaceVim.d/init.toml" ]
+    then
+      cp ~/.SpaceVim.d/init.toml .
+    fi
 fi
 

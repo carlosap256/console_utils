@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Import GitHub .*rc files to overwrite local ones? (y/n)"
-read -n 1 answer
+read -r -n 1 answer
 
 if [ "$answer" = "y" ]
 then
@@ -9,10 +9,15 @@ then
     cp .bashrc ~/.bashrc
     cp .profile ~/.profile
     cp .vimrc ~/.vimrc
+    if [ ! -d "$HOME/.SpaceVim.d" ]
+    then
+      mkdir ~/.SpaceVim.d
+    fi
+    cp init.toml ~/.SpaceVim.d/init.toml
 fi
 
 echo "Import root folder too? (y/n)"
-read -n 1 answer
+read -r -n 1 answer
 
 if [ "$answer" = "y" ]
 then
@@ -20,6 +25,11 @@ then
     sudo cp .bashrc /root/.bashrc
     sudo cp .profile /root/.profile
     sudo cp .vimrc /root/.vimrc
+    if [ ! -d "/root/.SpaceVim.d" ]
+    then
+      mkdir /root/.SpaceVim.d
+    fi
+    cp init.toml /root/.SpaceVim.d/init.toml
 fi
 
 
