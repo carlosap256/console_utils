@@ -9,11 +9,12 @@ then
     cp .bashrc ~/.bashrc
     cp .profile ~/.profile
     cp .vimrc ~/.vimrc
-    if [ ! -d "$HOME/.SpaceVim.d" ]
-    then
-      mkdir ~/.SpaceVim.d
-    fi
-    cp init.toml ~/.SpaceVim.d/init.toml
+    cp .bashrc_custom_prompt ~/.bashrc_custom_prompt
+#    if [ ! -d "$HOME/.SpaceVim.d" ]
+#    then
+#      mkdir ~/.SpaceVim.d
+#    fi
+#    cp init.toml ~/.SpaceVim.d/init.toml
 fi
 
 echo "Import root folder too? (y/n)"
@@ -25,11 +26,12 @@ then
     sudo cp .bashrc /root/.bashrc
     sudo cp .profile /root/.profile
     sudo cp .vimrc /root/.vimrc
-    if [ ! -d "/root/.SpaceVim.d" ]
-    then
-      mkdir /root/.SpaceVim.d
-    fi
-    cp init.toml /root/.SpaceVim.d/init.toml
+    sudo cp .bashrc_custom_prompt /root/.bashrc_custom_prompt
+#    if [ ! -d "/root/.SpaceVim.d" ]
+#    then
+#      mkdir /root/.SpaceVim.d
+#    fi
+#    cp init.toml /root/.SpaceVim.d/init.toml
 fi
 
 

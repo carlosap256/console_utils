@@ -9,6 +9,7 @@ then
     cp ~/.bashrc .
     cp ~/.profile .
     cp ~/.vimrc .
+    cp ~/.bashrc_custom_prompt .
     if [ -f "$HOME/.SpaceVim.d/init.toml" ]
     then
       cp ~/.SpaceVim.d/init.toml .

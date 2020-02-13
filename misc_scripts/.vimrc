@@ -17,5 +17,5 @@ set shiftwidth=4
 set expandtab
 
 " Pathogen 
-execute pathogen#infect()
+" execute pathogen#infect()
 
