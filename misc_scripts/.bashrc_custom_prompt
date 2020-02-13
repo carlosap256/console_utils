@@ -2,9 +2,9 @@
 
 is_git_directory=$(git rev-parse --is-inside-work-tree 2>/dev/null)
 
-GITLAB_COLOR="\033[1;7m\033[48;5;166m"
-REPOSITORY_COLOR="\033[1m\033[48;5;166m"
-BRANCH_COLOR="\033[1m\033[48;5;22m"
+GITLAB_COLOR="\033[7m\033[48;5;166m"
+REPOSITORY_COLOR="\033[48;5;166m"
+BRANCH_COLOR="\033[48;5;22m"
 NORMAL="\033[0m"
 
 ADDED_FILES="\033[38;5;10m"
@@ -44,6 +44,8 @@ then
         untracked_files=$(echo "$existing_changes" | grep "^\??.*" | wc -l)
 
         changed_files="${ADDED_FILES}+${added_files} ${MODIFIED_FILES}~${modified_files} ${DELETED_FILES}-${deleted_files} ${UNTRACKED_FILES}?${untracked_files}${NORMAL}"
+    else
+        changed_files=""
     fi 
     
     PS1="\n${GITLAB_COLOR}${gitlab_url}${NORMAL}|${REPOSITORY_COLOR}${repository_name}${NORMAL}  ${BRANCH_COLOR} $(get_branch)⛕ ${NORMAL} ${changed_files} \n$PS1"
