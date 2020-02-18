@@ -12,6 +12,10 @@ MODIFIED_FILES="\033[38;5;11m"
 DELETED_FILES="\033[38;5;1m"
 UNTRACKED_FILES="\033[38;5;15m"
 
+# Kubernetes
+#KUBERNETES_COLOR="\033[104m"
+KUBERNETES_COLOR="\033[48;5;26m"
+
 
 function get_branch
 {
@@ -48,5 +52,24 @@ then
         changed_files=""
     fi 
     
-    PS1="\n${GITLAB_COLOR}${gitlab_url}${NORMAL}|${REPOSITORY_COLOR}${repository_name}${NORMAL}  ${BRANCH_COLOR} $(get_branch)⛕ ${NORMAL} ${changed_files} \n$PS1"
+    PS1="${GITLAB_COLOR}${gitlab_url}${NORMAL}|${REPOSITORY_COLOR}${repository_name}${NORMAL}  ${BRANCH_COLOR} $(get_branch)⛕ ${NORMAL} ${changed_files} \n$PS1"
+fi
+
+# Kubernetes 
+if [ -f "namespace.yml" ]
+then 
+  namespace=$(yq r namespace.yml metadata.name)
+  
+  # Testing kubernetes command availability
+  $(microk8s.kubectl &>/dev/null)
+  kubernetes_available=$?
+
+  if [ "$kubernetes_available" == 0 ]
+  then
+
+    is_active=$(microk8s.kubectl get namespaces | grep "Active" | grep "${namespace}")
+    PS1="${KUBERNETES_COLOR} ☸ ${namespace}${NORMAL} active \n$PS1"
+  else
+    PS1="${KUBERNETES_COLOR} ☸ ${namespace}${NORMAL} \n$PS1"
+  fi
 fi
