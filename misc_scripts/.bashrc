@@ -121,4 +121,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-PROMPT_COMMAND=". ~/.bashrc_custom_prompt"
+#PROMPT_COMMAND=". ~/.bashrc_custom_prompt"
+
+
+powerline-daemon -q
+POWERLINE_BASH_CONTINUATION=1
+POWERLINE_BASH_SELECT=1
+. /usr/share/powerline/bindings/bash/powerline.sh 
