@@ -8,6 +8,7 @@ apt-get -y install curl
 # Bash linter
 apt-get -y install shellcheck
 
+apt install powerline
 
 echo -e "Install Vim syntax checking with (1) Pathogen? or with (2) Spacevim? "
 read -r -n1 option
