@@ -4,7 +4,9 @@ echo "Installing Kubernetes from snap"
 
 sudo snap install microk8s --classic
 
-#sudo usermod -a -G microk8s kubemain
+#echo "Adding current user to microk8s group"
+#username=$(whoami)
+#sudo usermod -a -G microk8s "${username}"
 
 echo "Adding dns dashboard and storage services"
 microk8s.enable dns dashboard storage
@@ -16,17 +18,16 @@ microk8s.kubectl -n kube-system get serviceaccount admin -o yaml
 
 echo "Extracting the token from the created account"
 secret_name=$(microk8s.kubectl -n kube-system get serviceaccount admin -o jsonpath='{.secrets[0].name}')
-# microk8s.kubectl -n kube-system get secret ${secret_name} -o yaml
 token=$(microk8s.kubectl -n kube-system get secret "${secret_name}" -o jsonpath='{.data.token}' | base64 --decode)
 
 
 
 echo "EXPOSE THE DASHBOARD"
 echo "Change .spec.type to NodePort"
-microk8s.kubectl -n kube-system edit service kubernetes-dashboard
-
-
+#microk8s.kubectl -n kube-system edit service kubernetes-dashboard
 #kubernetes-dashboard   NodePort   10.152.183.70   <none>        443:31975/TCP   3h20m
+microk8s.kubectl -n kube-system patch service kubernetes-dashboard -p '{"spec":{"type":"NodePort"}}'
+
 
 
 dashboard_ip=$(microk8s.kubectl get service/kubernetes-dashboard --namespace kube-system -o jsonpath='{.spec.clusterIP}')
