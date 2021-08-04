@@ -20,8 +20,9 @@ fi
 PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 export PYTHONSTARTUP=$HOME/.python-startup.py
-export GITHUB_PATH=~/github
+export GITHUB_PATH=$HOME/GitHub
 export UTILS_REPO=/console_utils
 
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate
+export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/kubernetes
