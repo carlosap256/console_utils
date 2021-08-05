@@ -64,5 +64,5 @@ echo -e "https://localhost:${dashboard_port}"
 echo -e "https://${dashboard_ip}:${dashboard_port}"
 
 echo -e "\n\nThe token to access the dashboard is:\n"
-./kube_get_token.sh
+kube_get_token.sh
 echo -e "\n"
