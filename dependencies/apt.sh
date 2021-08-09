@@ -1,15 +1,15 @@
 #!/bin/bash
 
-apt-get update
+sudo apt-get update
 
-apt-get -o Dpkg::Options::="--force-confnew" -y install git python3 python3-dev python3-django virtualenv python3-pip
-apt-get -y install curl
+sudo apt-get -o Dpkg::Options::="--force-confnew" -y install git python3 python3-dev python3-django virtualenv python3-pip
+sudo apt-get -y install curl
 
 # Bash linter
-apt-get -y install shellcheck
-apt install powerline
+sudo apt-get -y install shellcheck
+sudo apt install powerline
 
-snap install yq
+sudo snap install yq
 
 
 
@@ -27,7 +27,7 @@ then
     fi
 
     # Bash syntax checking 
-    apt-get install -y vim vim-syntastic shellcheck
+    sudo apt-get install -y vim vim-syntastic shellcheck
 
     # Install syntastic as a Pathogen bundle
     cd ~/.vim/bundle && \
@@ -51,12 +51,12 @@ then
     # Install Markdown for Git
     cd /tmp &&
     wget https://remarkableapp.github.io/files/remarkable_1.62_all.deb &&
-    apt-get install gdebi-core &&
-    gdebi remarkable_1.62_all.deb
+    sudo apt-get install gdebi-core &&
+    sudo gdebi remarkable_1.62_all.deb
 elif [ "$option" == "2" ]
 then
     # Install fallback Markdown tool
-    apt-get install retext
+    sudo apt-get install retext
 else
     echo "Invalid option '$option'.  Skipping..."
 fi

@@ -18,7 +18,8 @@ user_in_kubernetes_group=$(groups ${username} | grep "microk8s")
 if [ -z "$user_in_kubernetes_group" ];then
     echo "Adding current user to microk8s group"
     sudo usermod -a -G microk8s "${username}"
-    echo "Need log out and in again and rerun this script for the changes to take effect"
+    echo "WARNING!! "
+    echo "Need log out *completely* and rerun this script after loging in back for the changes to take effect"
     exit
 else
     echo "Current user is already in Kubernetes group"
