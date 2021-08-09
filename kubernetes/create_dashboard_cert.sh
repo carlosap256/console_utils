@@ -12,7 +12,7 @@ output_dir="$HOME/kubernetes_cert"
 mkdir "${output_dir}"
 cd "${output_dir}" || exit
 
-echo "Creating dashboard keys in "
+echo "Creating dashboard keys in ${output_dir}"
 openssl req -newkey rsa:4096 -x509 -sha256 -nodes -out dashboard.crt -keyout dashboard.key
 
 cd "${current_dir}" || exit
