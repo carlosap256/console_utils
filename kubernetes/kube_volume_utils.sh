@@ -1,6 +1,6 @@
 #!/bin/bash
 
-namespace=$(kube_get_namespace.sh)
+namespace=$(kube_namespace.sh)
 
 if [ -z "${namespace}" ]
 then
@@ -37,12 +37,12 @@ do
   if [ "$option" == "g" ]
   then
       echo -e "\nSelected volume info"
-      microk8s.kubectl -n $(kube_get_namespace.sh) get pv -o yaml | yq e .items["$(($REPLY-1))"] -
+      microk8s.kubectl -n $namespace get pv -o yaml | yq e .items["$(($REPLY-1))"] -
 
   elif [ "$option" == "p" ]
   then
       echo -e "\nSelected get real path"
-      microk8s.kubectl -n $(kube_get_namespace.sh) get pv -o yaml | yq e .items["$(($REPLY-1))"].spec.hostPath.path -
+      microk8s.kubectl -n $namespace get pv -o yaml | yq e .items["$(($REPLY-1))"].spec.hostPath.path -
   fi
 
   exit

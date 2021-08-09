@@ -19,6 +19,7 @@ if [ -z "$user_in_kubernetes_group" ];then
     echo "Adding current user to microk8s group"
     sudo usermod -a -G microk8s "${username}"
     echo "Need log out and in again and rerun this script for the changes to take effect"
+    exit
 else
     echo "Current user is already in Kubernetes group"
     echo ""
@@ -38,10 +39,10 @@ else
     echo ""
 fi
 
-echo "Extracting the token from the admin account"
-secret_name=$(microk8s.kubectl -n kube-system get serviceaccount admin -o jsonpath='{.secrets[0].name}')
-token=$(microk8s.kubectl -n kube-system get secret "${secret_name}" -o jsonpath='{.data.token}' | base64 --decode)
-
+#echo "Extracting the token from the admin account"
+#secret_name=$(microk8s.kubectl -n kube-system get serviceaccount admin -o jsonpath='{.secrets[0].name}')
+#token=$(microk8s.kubectl -n kube-system get secret "${secret_name}" -o jsonpath='{.data.token}' | base64 --decode)
+#kube_token.sh
 
 dashboard_spec_type=$(microk8s.kubectl -n kube-system get service kubernetes-dashboard -o jsonpath='{.spec.type}')
 if [ "$dashboard_spec_type" = "NodePort" ]; then
@@ -64,5 +65,5 @@ echo -e "https://localhost:${dashboard_port}"
 echo -e "https://${dashboard_ip}:${dashboard_port}"
 
 echo -e "\n\nThe token to access the dashboard is:\n"
-kube_get_token.sh
+kube_token.sh
 echo -e "\n"

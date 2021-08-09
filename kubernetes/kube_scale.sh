@@ -10,15 +10,16 @@ fi
 echo -e "\nFound namespace ${namespace}" 
 
 statefulset_list=$(microk8s.kubectl -n $namespace get statefulset -o yaml | yq e .items[].metadata.name -)
+# deployments_list=$(microk8s.kubectl -n $namespace get deployments -o yaml | yq e .items[].metadata.name -)
 
-if [ -z "$statefulset_list" ]
+if [ -z "$statefulset_list" ] # && [ -z "$deployments_list" ]
 then
+    #echo -e "\nNo statefulsets or deployments found in namespace"
     echo -e "\nNo statefulsets found in namespace"
     exit
 fi
 
 echo -e "\n\nStatefulsets:"
-
 select sfs_name in ${statefulset_list}
 do
 
@@ -49,6 +50,7 @@ do
 
       echo -e "\nHow many replicas? "
       read -r -n1 replicas
+      echo ""
       microk8s.kubectl -n ${namespace} scale --replicas=${replicas} statefulset/${sfs_name}
   fi
 
