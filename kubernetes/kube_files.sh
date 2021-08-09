@@ -30,6 +30,21 @@ do
   then
       echo -e "\nCreating resource from file"
       microk8s.kubectl create -f ${yml_file} -n ${namespace}
+
+
+      if [ "${yml_file}" == "config_namespace.yml" ]
+      then
+        
+          echo -e "\nCreate all the other resources?   y/N"
+          read -r -n1 option
+          if [ "$option" == "y" ]
+          then
+                # TODO
+                echo "TODO"
+          fi
+
+      fi
+
   elif [ "$option" == "r" ]
   then
       echo -e "\nReplacing resource from file"
