@@ -57,11 +57,11 @@ do
 
       echo -e "Using NodePort $nodeport"
 
-        nginx_services_path="/etc/nginx/services-enabled"
+        nginx_services_path="/etc/nginx/sites-enabled"
         proxy_pass_file="kube_$domainname"
         proxy_pass_filepath="${nginx_services_path}/${proxy_pass_file}"
 
-      echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port for the service in ${domainname} located in the Kubernetes NodePort $nodeport" 
+      echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
       echo -e "\n Is this correct?  WARNING: The file will be overwritten y/N"
 
       read -r -n1 option
