@@ -42,7 +42,7 @@ do
                 do
                     if [ "file" != "config_namespace.yml" ]
                     then
-                        echo "microk8s.kubectl create -f ${yml_file} -n ${namespace}"
+                        echo "microk8s.kubectl create -f ${file} -n ${namespace}"
                     fi
                 done
           fi
