@@ -31,7 +31,6 @@ do
       echo -e "\nCreating resource from file"
       microk8s.kubectl create -f ${yml_file} -n ${namespace}
 
-
       if [ "${yml_file}" == "config_namespace.yml" ]
       then
         
@@ -39,8 +38,13 @@ do
           read -r -n1 option
           if [ "$option" == "y" ]
           then
-                # TODO
-                echo "TODO"
+                for file in $yml_files
+                do
+                    if [ "file" != "config_namespace.yml" ]
+                    then
+                        echo "microk8s.kubectl create -f ${yml_file} -n ${namespace}"
+                    fi
+                done
           fi
 
       fi
