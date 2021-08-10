@@ -62,23 +62,26 @@ do
         proxy_pass_filepath="${nginx_services_path}/${proxy_pass_file}"
 
       echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
+
+        output="server {\n" 
+        output="$output\tlisten $port;\n"
+        output="$output\tserver_name $domainname;\n"
+        output="$output\n\tlocation / {\n"
+        output="$output\t\tproxy_pass http://localhost:${nodeport};\n"
+        output="$output\t}\n"
+        output="$output}\n"
+        
+        echo -e "$output\n"
+
       echo -e "\n Is this correct?  WARNING: The file will be overwritten y/N"
 
       read -r -n1 option
       if [ "$option" == "y" ]
       then
         
-        sudo echo -e "server {" > $proxy_pass_filepath
-        sudo echo -e     "\tlisten $port;" >> $proxy_pass_filepath
-        sudo echo -e     "\tserver_name $domainname;" >> $proxy_pass_filepath
-        sudo echo -e     "\n\tlocation / {" >> $proxy_pass_filepath
-        sudo echo -e         "\t\tproxy_pass http://localhost:${nodeport};" >> $proxy_pass_filepath
-        sudo echo -e     "\t}" >> $proxy_pass_filepath
-        sudo echo -e "}" >> $proxy_pass_filepath
+        echo -e "$output" > "$proxy_pass_filepath" && echo -e "\nAdded file:\n" | echo "Could not write file $proxy_pass_filepath"
       fi
 
-        echo -e "\nAdded file:\n"
-        cat $proxy_pass_filepath
       exit
      done
   fi
