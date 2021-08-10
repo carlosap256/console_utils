@@ -9,7 +9,7 @@ fi
 
 echo -e "\nFound namespace ${namespace}" 
 
-services_list=$( microk8s.kubectl -n$namespace get services -o jsonpath={.items[].metadata.name}  )
+services_list=$( microk8s.kubectl -n$namespace get services -o jsonpath={.items[*].metadata.name}  )
 
 if [ -z "$services_list" ]
 then
@@ -44,7 +44,7 @@ do
       read -r domainname
       
       echo -e "\n Listing NodePorts for this service:"
-      nodeports=$(microk8s.kubectl -n$namespace get services -o jsonpath={.items[].spec.ports[].nodePort} )
+      nodeports=$(microk8s.kubectl -n$namespace get services -o jsonpath={.items[*].spec.ports[*].nodePort} )
 
       select nodeport in ${nodeports}
       do
