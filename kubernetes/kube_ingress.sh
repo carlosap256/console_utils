@@ -29,7 +29,7 @@ do
   fi
 
   echo -e "\n\nUsing service: $service_name"
-
+    # TODO add option for Apache too
   echo -e "\nAdd proxy pass to Nginx using this service?   y/N"
   read -r -n1 option
   if [ "$option" == "y" ]
@@ -61,8 +61,10 @@ do
         proxy_pass_file="kube_$domainname"
         proxy_pass_filepath="${nginx_services_path}/${proxy_pass_file}"
 
-      echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
 
+        echo -e "************************"
+        echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
+        echo -e "************************\n\n"
         output="server {\n" 
         output="$output\tlisten $port;\n"
         output="$output\tserver_name $domainname;\n"
