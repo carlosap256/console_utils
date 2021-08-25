@@ -10,7 +10,7 @@ fi
 
 echo -e "\nFound namespace ${namespace}" 
 
-persistent_volumes=$(microk8s.kubectl -n ${namespace} get persistentvolume -o yaml | yq e .items[].spec.claimRef.name -)
+persistent_volumes=$( microk8s.kubectl -n $(kube_namespace.sh) get persistentvolume -o yaml | yq e ".items[].spec.claimRef | select(.namespace == \"${namespace}\") | .name " -  )
 
 if [ -z "$persistent_volumes" ]
 then

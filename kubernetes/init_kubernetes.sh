@@ -5,6 +5,12 @@ is_kube_installed=$(snap info microk8s | grep "installed")
 if [ -z "$is_kube_installed" ];then
     echo "Installing Kubernetes from snap"
     sudo snap install microk8s --classic
+    sudo snap install kustomize
+    #TODO ask before
+    sudo snap connect kustomize:removable-media
+    # TODO ask if user wants to disable High Availability cluster which causes high CPU use
+    # https://github.com/ubuntu/microk8s/issues/1684
+    #microk8s.disable ha-cluster
 else
     kube_version=$(echo "${is_kube_installed}" | awk '{print $2}')
     echo "Kubernetes already installed"
