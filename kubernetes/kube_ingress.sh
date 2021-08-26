@@ -30,17 +30,17 @@ do
 
   echo -e "\n\nUsing service: $service_name"
     # TODO add option for Apache too
-  echo -e "\nAdd proxy pass to Nginx using this service?   y/N"
+  echo -e "\nStart wizard for an Nginx proxy pass using this service?   y/N"
   read -r -n1 option
   if [ "$option" == "y" ]
   then
-      echo -e "\nService to proxy"
+      echo -e "\nKubernetes details for the service to proxy:"
       microk8s.kubectl describe service ${service_name} -n ${namespace}
 
-      echo -e "\n Listen to which port? "
+      echo -e "\n Listen to which port? (e.g.  443 )"
       read -r port
 
-      echo -e "\n What is the domain name of the service? "
+      echo -e "\n What is the domain name of the service? (e.g.  test.example.com )"
       read -r domainname
       
       echo -e "\n Listing NodePorts for this service:"
@@ -63,7 +63,7 @@ do
 
 
         echo -e "************************"
-        echo -e "\n Adding file to Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
+        echo -e "\n Result template file for Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
         echo -e "************************\n\n"
         output="server {\n" 
         output="$output\tlisten $port;\n"
@@ -75,7 +75,7 @@ do
         
         echo -e "$output\n"
 
-      echo -e "\n Is this correct?  WARNING: The file will be overwritten y/N"
+      echo -e "\n Is this correct?  WARNING: The file '${proxy_pass_filepath}' will be overwritten y/N"
 
       read -r -n1 option
       if [ "$option" == "y" ]
