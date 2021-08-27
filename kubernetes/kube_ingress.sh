@@ -57,7 +57,7 @@ do
 
       echo -e "Using NodePort $nodeport"
 
-        nginx_services_path="/etc/nginx/sites-enabled"
+        nginx_services_path="/etc/nginx/sites-available"
         proxy_pass_file="kube_$domainname"
         proxy_pass_filepath="${nginx_services_path}/${proxy_pass_file}"
 
@@ -65,14 +65,47 @@ do
         echo -e "************************"
         echo -e "\n Result template file for Nginx $proxy_pass_filepath \n Listening port: $port \n for the service in ${domainname} \n located in the Kubernetes NodePort $nodeport" 
         echo -e "************************\n\n"
-        output="server {\n" 
-        output="$output\tlisten $port;\n"
-        output="$output\tserver_name $domainname;\n"
-        output="$output\n\tlocation / {\n"
-        output="$output\t\tproxy_pass http://localhost:${nodeport};\n"
-        output="$output\t}\n"
-        output="$output}\n"
-        
+
+        output="
+server {
+	access_log /var/log/nginx/kube_${domainname}.log;
+	error_log /var/log/nginx/kube_${domainname}.log;
+
+	location / {
+        proxy_set_header Host ${domainname};
+		proxy_pass https://localhost:${nodeport};
+	}
+ 
+     listen ${port};
+     server_name ${domainname};
+}
+
+server {
+      if (\$host = ${domainname}) {
+          return 301 https://${domainname}\$request_uri;
+      }
+      server_name ${domainname};
+      return 404;
+
+	access_log /var/log/nginx/kube_${domainname}.log;
+	error_log /var/log/nginx/kube_${domainname}.log;
+
+     listen ${port};
+}
+
+server {
+     if (\$host = ${domainname}) {
+         return 301 https://\$host\$request_uri;
+     }
+
+	access_log /var/log/nginx/kube_${domainname}.log;
+	error_log /var/log/nginx/kube_${domainname}.log;
+ 
+     listen 80;
+     server_name ${domainname};
+}
+        "
+
         echo -e "$output\n"
 
       echo -e "\n Is this correct?  WARNING: The file '${proxy_pass_filepath}' will be overwritten y/N"
@@ -81,7 +114,7 @@ do
       if [ "$option" == "y" ]
       then
         
-        echo -e "$output" > "$proxy_pass_filepath" && echo -e "\nAdded file:\n" | echo "Could not write file $proxy_pass_filepath"
+        echo -e "$output" > "$proxy_pass_filepath" && echo -e "\nAdded file:\n" || echo "Could not write file $proxy_pass_filepath"
       fi
 
       exit
