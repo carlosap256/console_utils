@@ -35,23 +35,28 @@ do
   if [ "$option" == "d" ]
   then
       echo -e "\nSelected describe"
-      microk8s.kubectl describe pod ${pod_name} -n ${namespace}
+      #microk8s.kubectl describe pod ${pod_name} -n ${namespace}
+      kube_main.sh describe pod ${pod_name}
   elif [ "$option" == "l" ]
   then
       echo -e "\nSelected logs"
-      microk8s.kubectl -n ${namespace} logs ${pod_name} --follow
+      #microk8s.kubectl -n ${namespace} logs ${pod_name} --follow
+      kube_main.sh logs ${pod_name} --follow
   elif [ "$option" == "e" ]
   then
       echo -e "\nSelected events"
-      microk8s.kubectl get event -n ${namespace} --field-selector involvedObject.name=${pod_name}
+      #microk8s.kubectl get event -n ${namespace} --field-selector involvedObject.name=${pod_name}
+      kube_main.sh get events --field-selector involvedObject.name=${pod_name}
   elif [ "$option" == "f" ]
   then
       echo -e "\nSelected follow"
-      watch "microk8s.kubectl get event -n ${namespace} --field-selector involvedObject.name=${pod_name}"
+     # watch "microk8s.kubectl get event -n ${namespace} --field-selector involvedObject.name=${pod_name}"
+      watch "kube_main.sh get events --field-selector involvedObject.name=${pod_name}"
   elif [ "$option" == "x" ]
   then
       echo -e "\nSelected bash term"
-      microk8s.kubectl -n ${namespace} exec -it ${pod_name} -- /bin/bash
+      #microk8s.kubectl -n ${namespace} exec -it ${pod_name} -- /bin/bash
+      kube_main.sh exec -it ${pod_name} -- /bin/bash
   fi
 
 done
