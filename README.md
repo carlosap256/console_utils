@@ -1,5 +1,5 @@
 # Console Utils
-
+ 
 This is a repository to try and have a consistent number of tools and configuration to work with.
 I got tired of having to manually export and import the configurations for Bash, VIM, etc, on any new machine I use, so this approach helps me to quickly import/export configurations between machines.
 For now it only has Bash, Vim and Aliases configuration files in /misc_scripts
