@@ -2,13 +2,20 @@
 
 sudo add-apt-repository ppa:yubico/stable && sudo apt-get update
 
-sudo apt install yubikey-manager
-sudo apt install yubikey-personalization-gui
-sudo apt install gnupg pcscd scdaemon
-mkdir ~/.gnupg
-cd ~/.gnupg
+sudo apt install -y yubikey-manager
+sudo apt install -y yubikey-personalization-gui
+sudo apt install -y gnupg pcscd scdaemon
 
-cat > ~/.gnupg/scdaemon.conf <<'EOF'
+gnupg_home="$HOME/.gnupg"
+echo -n "Making GNUPG home in $gnupg_home"
+mkdir $gnupg_home
+chmod go-rwx $gnupg_home
+cd $gnupg_home
+
+
+echo -n "Configuring scdaemon to pick up the Yubikey by default"
+
+cat > $gnupg_home/scdaemon.conf <<'EOF'
 disable-ccid
 pcsc-driver /usr/lib/x86_64-linux-gnu/libpcsclite.so.1
 card-timeout 1
@@ -22,9 +29,10 @@ card-timeout 1
 reader-port Yubico Yubikey
 EOF
 
-echo "trust-model tofu+pgp" > ~/.gnupg/gpg.conf 
+echo "trust-model tofu+pgp" > $gnupg_home/gpg.conf 
 
-systemctl --user restart gpg-agent.service
+echo -n "Configuring scdaemon to pick up the Yubikey by default"
+sudo systemctl --user restart gpg-agent.service
 
 
 
