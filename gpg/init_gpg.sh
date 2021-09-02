@@ -1,8 +1,10 @@
 #!/bin/bash
 
 gnupg_home="$HOME/.gnupg"
+username=$(git config --global user.name)
+email=$(git config --global user.email)
 
-sudo apt update
+#sudo apt update
 #sudo apt -y upgrade
 sudo apt -y install wget gnupg2 gnupg-agent dirmngr cryptsetup scdaemon pcscd secure-delete hopenpgp-tools yubikey-personalization
 
@@ -22,23 +24,6 @@ then
     ~/.local/bin/ykman openpgp info
 fi
 
-echo -e "\n Generate random master key passphrase? y/N"
-read -r -n1 option
-if [ "$option" == "y" ]
-then
-    master_key_passphrase=$(gpg --gen-random --armor 0 24)
-    echo -e "\nKeep this in a secure location.  ${master_key_passphrase}  \n"
-fi
-
-
-echo -e "\n Hit enter to continue with the key creation"
-read -r 
-cd $gnupg_home
-
-
-username=$(git config --global user.name)
-email=$(git config --global user.email)
-
 echo "Using identity from Git config"
 echo -e "\n Current values:"
 echo "user.name: '$username'"
@@ -52,8 +37,21 @@ then
 	exit
 fi
 
-#export GNUPGHOME="$(mktemp -d)"
-cat >master_key_batch <<EOF
+echo -e "\n Generate master key and sub keys? y/N"
+read -r -n1 option
+if [ "$option" == "y" ]
+then
+    echo -e "\n\nGenerating passphase for the master key..."
+    echo -e "\nKeep this in a secure location."
+    echo -e "\n ********* $(gpg --gen-random --armor 0 24) ******** \n"
+
+
+    echo -e "\n Hit enter to continue with the key creation"
+    read -r 
+    cd $gnupg_home
+
+    #export GNUPGHOME="$(mktemp -d)"
+    cat >master_key_batch <<EOF
      %echo Generating a master OpenPGP key
      Key-Type: RSA
      Key-Length: 4096
@@ -64,16 +62,39 @@ cat >master_key_batch <<EOF
      %commit
      %echo done
 EOF
-gpg --batch --full-generate-key master_key_batch --passphrase $master_key_passphrase cert
+    gpg --batch --generate-key "${gnupg_home}/master_key_batch"
 
-echo "Setting key to fully trust"
-echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $email trust;
+    echo "Setting key to fully trust"
+    echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $email trust;
 
-master_key_id=$(gpg --list-options show-only-fpr-mbox --list-secret-keys | awk '{print $1}')
+    master_key_id=$(gpg --list-options show-only-fpr-mbox --list-secret-keys | awk '{print $1}')
 
-echo "Creating subkeys to Sign Authenticate and Encrypt"
-gpg --batch --quick-add-key $master_key_id rsa4096 sign 1y
-gpg --batch --quick-add-key $master_key_id rsa4096 auth 1y
-gpg --batch --quick-add-key $master_key_id rsa4096 encr 1y
+    echo "Creating subkeys to Sign Authenticate and Encrypt"
+    gpg --batch --quick-add-key $master_key_id rsa4096 sign 1y
+    gpg --batch --quick-add-key $master_key_id rsa4096 auth 1y
+    gpg --batch --quick-add-key $master_key_id rsa4096 encr 1y
 
+    echo "Export keys"
+    gpg --armor --export-secret-keys $master_key_id > ${gnupg_home}/mastersub.key
+    gpg --armor --export-secret-subkeys $master_key_id > ${gnupg_home}/sub.key
+
+fi
+
+echo -e "\n\n\nSummary of keys:"
+gpg -k
+
+echo -e "\n Export key to a public key server? y/N"
+read -r -n1 option
+if [ "$option" == "y" ]
+    echo "Public key server"  
+    #TODO
+fi
+
+echo -e "\n Print public key? y/N"
+read -r -n1 option
+if [ "$option" == "y" ]
+then
+    echo "Print public key"
+    gpg --export -a
+fi
 
