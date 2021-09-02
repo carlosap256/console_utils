@@ -2,7 +2,7 @@
 
 gnupg_home="$HOME/.gnupg"
 
-#sudo apt update
+sudo apt update
 #sudo apt -y upgrade
 sudo apt -y install wget gnupg2 gnupg-agent dirmngr cryptsetup scdaemon pcscd secure-delete hopenpgp-tools yubikey-personalization
 
@@ -52,8 +52,7 @@ then
 	exit
 fi
 
-#export temp_dir="$(mktemp -d)"
-export GNUPGHOME="$(mktemp -d)"
+#export GNUPGHOME="$(mktemp -d)"
 cat >master_key_batch <<EOF
      %echo Generating a master OpenPGP key
      Key-Type: RSA
@@ -72,6 +71,9 @@ echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $email trust;
 
 master_key_id=$(gpg --list-options show-only-fpr-mbox --list-secret-keys | awk '{print $1}')
 
-gpg --batch --passphrase $master_key_passphrase --quick-add-key $master_key_id rsa4096 sign 1y
-gpg --batch --passphrase $master_key_passphrase --quick-add-key $master_key_id rsa4096 auth 1y
-gpg --batch --passphrase $master_key_passphrase --quick-add-key $master_key_id rsa4096 encr 1y
+echo "Creating subkeys to Sign Authenticate and Encrypt"
+gpg --batch --quick-add-key $master_key_id rsa4096 sign 1y
+gpg --batch --quick-add-key $master_key_id rsa4096 auth 1y
+gpg --batch --quick-add-key $master_key_id rsa4096 encr 1y
+
+
