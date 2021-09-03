@@ -67,7 +67,7 @@ EOF
     echo "Setting key to fully trust"
     echo -e "5\ny\n" |  gpg --command-fd 0 --expert --edit-key $email trust;
 
-    master_key_id=$(gpg --list-options show-only-fpr-mbox --list-secret-keys | awk '{print $1}')
+    master_key_id=$(get_master_key_id.sh)
 
     echo "Creating subkeys to Sign Authenticate and Encrypt"
     gpg --batch --quick-add-key $master_key_id rsa4096 sign 1y
@@ -75,8 +75,8 @@ EOF
     gpg --batch --quick-add-key $master_key_id rsa4096 encr 1y
 
     echo "Export keys"
-    gpg --armor --export-secret-keys $master_key_id > ${gnupg_home}/mastersub.key
-    gpg --armor --export-secret-subkeys $master_key_id > ${gnupg_home}/sub.key
+    gpg --armor --export-secret-keys $master_key_id > ${gnupg_home}/mastersub_${master_key_id}.key
+    gpg --armor --export-secret-subkeys $master_key_id > ${gnupg_home}/sub_${master_key_id}.key
 
 fi
 
@@ -97,4 +97,13 @@ then
     echo "Print public key"
     gpg --export -a
 fi
+
+echo -e "\n Set up Git to sign with this key? y/N"
+read -r -n1 option
+if [ "$option" == "y" ]
+then
+    git config --global user.signingkey $(get_master_key_id.sh)
+    echo "Sign commits by adding -S:   commit -S -m 'Comment'"
+fi
+
 
