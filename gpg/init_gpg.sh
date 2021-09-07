@@ -86,6 +86,7 @@ gpg -k
 echo -e "\n Export key to a public key server? y/N"
 read -r -n1 option
 if [ "$option" == "y" ]
+then
     echo "Public key server"  
     #TODO
 fi
