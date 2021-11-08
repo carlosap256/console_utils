@@ -4,7 +4,7 @@ gnupg_home="$HOME/.gnupg"
 username=$(git config --global user.name)
 email=$(git config --global user.email)
 
-#sudo apt update
+sudo apt update
 #sudo apt -y upgrade
 sudo apt -y install wget gnupg2 gnupg-agent dirmngr cryptsetup scdaemon pcscd secure-delete hopenpgp-tools yubikey-personalization
 
