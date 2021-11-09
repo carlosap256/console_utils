@@ -3,6 +3,7 @@
 #vm_ip=$1
 #vm_ip="10.0.2.15"
 current_dir=$(pwd)
+current_user=$(whoami)
 
 #if [ -z "$vm_ip" ]; then;
 #    echo "IP should be the first argument"
@@ -12,7 +13,7 @@ output_dir="$HOME/kubernetes_cert"
 mkdir "${output_dir}"
 cd "${output_dir}" || exit
 
- echo -e "\nGenerate Certbot certificates (c), or Self signed certificates (s)?   c/s"
+ echo -e "\nGenerate real Certbot certificates for outside facing server (c), or Self signed certificates for local server (s)?   c/s"
   read -r -n1 option
   if [ "$option" == "c" ]
   then
@@ -29,7 +30,7 @@ cd "${output_dir}" || exit
 
     sudo cp ${fullchain} ${output_dir}/dashboard.crt
     sudo cp ${privkey} ${output_dir}/dashboard.key
-    sudo chown ops:ops ${output_dir}/dashboard.*
+    sudo chown ${current_user}:${current_user} ${output_dir}/dashboard.*
     
 
   elif [ "$option" == "s" ]
