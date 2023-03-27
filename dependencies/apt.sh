@@ -11,6 +11,13 @@ sudo apt install powerline
 
 sudo snap install yq
 
+# Command line utils
+sudo apt install nnn ncdu neofetch
+sudo snap install btop
+# nnn File manager
+# ncdu Visual du
+# neofetch System info
+# btop improved top/htop
 
 
 #echo -e "Install Vim syntax checking with (1) Pathogen? or with (2) Spacevim? "
