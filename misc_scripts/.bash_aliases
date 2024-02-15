@@ -10,6 +10,9 @@ alias gg='git log --all --graph --pretty=format:"%C(auto)%h%C(auto)%d %s %C(mage
 # Shorcut to show the status in the condensed form
 alias gts='git status -s -b'
 
+# Shorcut to show conflicted files
+alias gcf='git diff --name-only --diff-filter=U --relative'
+
 # Delete branch in both local and remote repositories
 #       gdb branchname
 function delete_branch () { echo -e "\nDeleting Remote branch";
