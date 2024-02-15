@@ -28,5 +28,3 @@ export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/bin/boilerplate
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/kubernetes
 export PATH=$PATH:${GITHUB_PATH}${UTILS_REPO}/gpg
 
-# Cmake
-export PATH=$PATH:/home/carlosap/Development/Cmake/cmake-3.25.1-linux-x86_64/bin
