@@ -13,7 +13,8 @@
 
 
 
-installer_file_url=`curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json | yq e '.channels.Stable.downloads.chromedriver.[] | select(.platform == "linux64") | .url'`
+#installer_file_url=`curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions-with-downloads.json | yq e '.channels.Stable.downloads.chromedriver.[] | select(.platform == "linux64") | .url'`
+installer_file_url=`./get_latest_chromedriver_url.sh`
 wget ${installer_file_url}
 
 
