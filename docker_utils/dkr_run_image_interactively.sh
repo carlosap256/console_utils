@@ -24,6 +24,12 @@ do
 
   echo -e "\n\nRunning image: $image_name"
 
-  docker run -it $image_name /bin/bash
+  if [ -z "`is_windows.sh`" ]
+  then
+     docker run -it $image_name /bin/sh
+  else
+     winpty docker run -it $image_name /bin/sh
+  fi
+
 done
 
