@@ -1,4 +1,4 @@
-#!/binb/bash
+#!/bin/bash
 
 # Uses Cup as a docker
 # https://cup.sergi0g.dev/docs
