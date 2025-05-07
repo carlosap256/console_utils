@@ -10,28 +10,17 @@ then
     cp .profile ~/.profile
     cp .vimrc ~/.vimrc
     cp .bashrc_custom_prompt ~/.bashrc_custom_prompt
-#    if [ ! -d "$HOME/.SpaceVim.d" ]
-#    then
-#      mkdir ~/.SpaceVim.d
-#    fi
-#    cp init.toml ~/.SpaceVim.d/init.toml
+
+
+    if [ ! -d "$HOME/.config/nvim" ]
+    then
+      mkdir -p ~/.config/nvim/
+    fi
+    cp init.vim ~/.config/nvim/init.vim
+
+    echo "Run :PluginInstall inside nvim to install/update plugins"
+
 fi
 
-echo "Import root folder too? (y/n)"
-read -r -n 1 answer
-
-if [ "$answer" = "y" ]
-then
-    sudo cp .bash_aliases /root/.bash_aliases
-    sudo cp .bashrc /root/.bashrc
-    sudo cp .profile /root/.profile
-    sudo cp .vimrc /root/.vimrc
-    sudo cp .bashrc_custom_prompt /root/.bashrc_custom_prompt
-#    if [ ! -d "/root/.SpaceVim.d" ]
-#    then
-#      mkdir /root/.SpaceVim.d
-#    fi
-#    cp init.toml /root/.SpaceVim.d/init.toml
-fi
 
 
