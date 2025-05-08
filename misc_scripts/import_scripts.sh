@@ -10,7 +10,7 @@ then
     cp .profile ~/.profile
     cp .vimrc ~/.vimrc
     cp .bashrc_custom_prompt ~/.bashrc_custom_prompt
-
+    cp .gitconfig ~/.gitconfig
 
     if [ ! -d "$HOME/.config/nvim" ]
     then

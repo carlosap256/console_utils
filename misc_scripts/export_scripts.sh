@@ -10,6 +10,7 @@ then
     cp ~/.profile .
     cp ~/.vimrc .
     cp ~/.bashrc_custom_prompt .
+    cp ~/.gitconfig .
     if [ -f "$HOME/.config/nvim/init.vim" ]
     then
       cp ~/.config/nvim/init.vim .
