@@ -12,13 +12,23 @@ then
     cp .bashrc_custom_prompt ~/.bashrc_custom_prompt
     cp .gitconfig ~/.gitconfig
 
+    cp .zshrc ~/.zshrc
+    if [ ! -d "$HOME/.config/zsh" ]
+    then
+      mkdir -p ~/.config/zsh/
+    fi
+    cp zsh/* ~/.config/zsh/
+
     if [ ! -d "$HOME/.config/nvim" ]
     then
       mkdir -p ~/.config/nvim/
     fi
     cp init.vim ~/.config/nvim/init.vim
 
+    echo "Reminders:"
     echo "Run :PluginInstall inside nvim to install/update plugins"
+
+    echo "Install zsh requirements listed in the ~/.zshrc file"
 
 fi
 

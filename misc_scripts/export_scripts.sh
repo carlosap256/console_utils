@@ -11,6 +11,16 @@ then
     cp ~/.vimrc .
     cp ~/.bashrc_custom_prompt .
     cp ~/.gitconfig .
+
+
+    cp ~/.zshrc .
+
+    if [ -d "$HOME/.config/zsh" ]
+    then
+      cp -r ~/.config/zsh .
+      # antigen file is in the .gitignore
+    fi
+
     if [ -f "$HOME/.config/nvim/init.vim" ]
     then
       cp ~/.config/nvim/init.vim .
