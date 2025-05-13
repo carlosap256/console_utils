@@ -27,6 +27,8 @@ alias gdb='delete_branch'
 # *****************
 
 
+alias grep='grep --color'
+
 # Perform a grep on a tail -f stream
 #       gtail filename regexpattern
 function grep_tail () { tail -f $1 | grep --line-buffered $2; }
@@ -36,6 +38,6 @@ alias gtail='grep_tail'
 alias vim='nvim'
 alias vi='nvim'
 
-alias la='ls -lah'
-alias l='ls'
-alias ls='ls -lh'
+alias la='ls -lah --color=auto'
+alias l='ls --color=auto'
+alias ls='ls -lh --color=auto'
