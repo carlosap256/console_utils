@@ -56,7 +56,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 
 # Aliases
-source .config/zsh/aliases
+source ~/.config/zsh/aliases
 
 # Plugins
 source ~/.config/zsh/antigen.zsh        # requires    curl -L git.io/antigen > ~/.config/zsh/antigen.zsh
