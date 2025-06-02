@@ -27,12 +27,6 @@ do
 
   echo -e "\n\nAttaching to container: $container_name"
 
-
- if [ -z "`is_windows.sh`" ]
- then
-   docker exec -it $container_name /bin/sh
- else
-   winpty  docker exec -it $container_name /bin/sh
- fi
+  docker exec -it $container_name /bin/sh
 done
 
