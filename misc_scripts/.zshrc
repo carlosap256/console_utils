@@ -70,11 +70,11 @@ antigen apply
 
 # History plugin config
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
-bindkey '^[[A' history-substring-search-up
+bindkey "$terminfo[kcuu1]" history-substring-search-up       # Up arrow key (non-hardcoded)
+bindkey "$terminfo[kcud1]" history-substring-search-down     # Down arrow key (non-hardcoded)
+bindkey '^[[A' history-substring-search-up                   # Up arrow key
 bindkey '^[OA' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey '^[[B' history-substring-search-down                 # Down arrow key
 bindkey '^[OB' history-substring-search-down
 
 
