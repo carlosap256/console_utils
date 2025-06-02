@@ -13,6 +13,7 @@ then
     cp .gitconfig ~/.gitconfig
 
     cp .zshrc ~/.zshrc
+    cp .zprofiile ~/.zprofile
     if [ ! -d "$HOME/.config/zsh" ]
     then
       mkdir -p ~/.config/zsh/

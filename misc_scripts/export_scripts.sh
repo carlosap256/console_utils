@@ -14,6 +14,7 @@ then
 
 
     cp ~/.zshrc .
+    cp ~/.zprofile .
 
     if [ -d "$HOME/.config/zsh" ]
     then
