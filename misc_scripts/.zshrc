@@ -64,6 +64,7 @@ source ~/.config/zsh/antigen.zsh        # requires    curl -L git.io/antigen > ~
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-history-substring-search
+antigen bundle zpm-zsh/zshmarks         # Bookmarks  https://github.com/zpm-zsh/bookmarks
 
 # Tell antigen that you're done
 antigen apply
