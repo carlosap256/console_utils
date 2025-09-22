@@ -26,10 +26,10 @@ then
     fi
     cp init.vim ~/.config/nvim/init.vim
 
-    echo "Reminders:"
-    echo "Run :PluginInstall inside nvim to install/update plugins"
+    echo -e "\nReminders:\n"
+    echo "Install requirements listed in ~/.config/nvim/init.vim"
 
-    echo "Install zsh requirements listed in the ~/.zshrc file"
+    echo "Install zsh requirements listed in ~/.zshrc"
 
 fi
 
